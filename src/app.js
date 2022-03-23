@@ -1,6 +1,3 @@
-document.querySelectorAll('button[data-modal-button')
-  .forEach(
-    element => {
-      console.log('element', element)
-    }
-  )
+import { initializeModals } from './modal-component/modal.js'
+
+initializeModals({ appRoot: document.querySelector('#app') })
