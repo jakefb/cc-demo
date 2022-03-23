@@ -16,50 +16,48 @@ function initializeModal ({ modalButton, callback }) {
 
   const { modalMessage } = modalButton.dataset
 
-  if (modalMessage) {
-    const dialogElement = document.createElement('div')
-    dialogElement.className = 'modal'
-    dialogElement.style.display = 'none'
+  if (!modalMessage) {
+    throw Error('Please provide a message for the modal, using the "data-modal-message" HTML attribute on the button element:', element)
+  }
 
-    const dialogElementInner = document.createElement('div')
-    dialogElementInner.className = 'modal-inner'
-    dialogElementInner.innerHTML = `
-      <p>${modalMessage}</p>
-    `
+  const dialogElement = document.createElement('div')
+  dialogElement.className = 'modal'
+  dialogElement.style.display = 'none'
 
-    const buttonWrapperDiv = document.createElement('div')
+  const dialogElementInner = document.createElement('div')
+  dialogElementInner.className = 'modal-inner'
+  dialogElementInner.innerHTML = `
+    <p>${modalMessage}</p>
+  `
 
-    const yesButton = document.createElement('button')
-    yesButton.textContent = 'Yes'
-    yesButton.onclick = () => {
-      console.log('clicked yes')
-      callback({ result: 'yes' })
-      closeModal(dialogElement)
-    }
+  const buttonWrapperDiv = document.createElement('div')
 
-    const cancelButton = document.createElement('button')
-    cancelButton.textContent = 'Cancel'
-    cancelButton.onclick = () => {
-      console.log('clicked cancel')
-      callback({ result: 'cancel' })
-      closeModal(dialogElement)
-    }
+  const yesButton = document.createElement('button')
+  yesButton.textContent = 'Yes'
+  yesButton.onclick = () => {
+    console.log('clicked yes')
+    callback({ result: 'yes' })
+    closeModal(dialogElement)
+  }
 
-    buttonWrapperDiv.append(yesButton)
-    buttonWrapperDiv.append(cancelButton)
+  const cancelButton = document.createElement('button')
+  cancelButton.textContent = 'Cancel'
+  cancelButton.onclick = () => {
+    console.log('clicked cancel')
+    callback({ result: 'cancel' })
+    closeModal(dialogElement)
+  }
 
-    dialogElementInner.append(buttonWrapperDiv)
+  buttonWrapperDiv.append(yesButton)
+  buttonWrapperDiv.append(cancelButton)
 
-    dialogElement.append(dialogElementInner)
-    document.body.append(dialogElement)
+  dialogElementInner.append(buttonWrapperDiv)
 
-    modalButton.onclick = () => {
-      openModal(dialogElement)
-    }
-  } else {
-    if (!modalMessage) {
-      throw Error('Please provide a message for the modal, using the "data-modal-message" HTML attribute on the button element:', element)
-    }
+  dialogElement.append(dialogElementInner)
+  document.body.append(dialogElement)
+
+  modalButton.onclick = () => {
+    openModal(dialogElement)
   }
 }
 
