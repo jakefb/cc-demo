@@ -1,0 +1,10 @@
+{
+  "name": "cc-demo",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "serve src"
+  },
+  "devDependencies": {
+    "serve": "^13.0.2"
+  }
+}
